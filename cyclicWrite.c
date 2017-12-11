@@ -38,10 +38,9 @@ int main()
 	uint32_t seed = 0;
 	while(true)
 	{
-		generate((void *)mem -> BUFFER[ mem -> pos].arr, seed);
+		generate((void *)mem -> BUFFER[ mem -> pos % 1000].arr, seed);
 		seed++;
 		mem->pos++;
-		mem->pos %= 1000;
 	}	
 
 	return 0;

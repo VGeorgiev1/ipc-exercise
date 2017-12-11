@@ -23,12 +23,16 @@ int main()
 	}	
 
 	uint64_t cur_pos = mem -> pos;
-	uint64_t prev_seed = verify((void *)mem->BUFFER[cur_pos - 1].arr); //get the seed of the previous element before we start reading 
+	uint64_t prev_seed = verify((void *)mem->BUFFER[cur_pos % 1000 - 1].arr); //get the seed of the previous element before we start reading 
 	printf("starting at %ld\n", cur_pos);
 	while( true )
 	{
+		if(mem -> pos - cur_pos >= 1000){
+			printf("Lap error!");
+			break;
+		}
 		while(mem -> pos == cur_pos){};
-		int64_t cur_seed = verify((void *)mem->BUFFER[cur_pos].arr);
+		int64_t cur_seed = verify((void *)mem->BUFFER[cur_pos % 1000].arr);
 		if(cur_seed == -1){
 			printf("Error!");
 			break;
@@ -38,9 +42,9 @@ int main()
 			break;
 		}
 		prev_seed +=1;
-		printf("Verified at %ld with seed %ld\n", cur_pos, cur_seed);
-		cur_pos++;
-		cur_pos %= 1000;
+		printf("Verified at %ld with seed %ld\n", cur_pos % 1000, cur_seed);
+		cur_pos ++;
+		//sleep(1); seems like the lap error check is working if this is not commented ;d
 	}
 	return 0;
 }
