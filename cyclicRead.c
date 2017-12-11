@@ -23,6 +23,9 @@ int main()
 	}	
 
 	uint64_t cur_pos = mem -> pos;
+	if(cur_pos == 0){
+		cur_pos = 1;
+	}
 	uint64_t prev_seed = verify((void *)mem->BUFFER[cur_pos % 1000 - 1].arr); //get the seed of the previous element before we start reading 
 	printf("starting at %ld\n", cur_pos);
 	while( true )
